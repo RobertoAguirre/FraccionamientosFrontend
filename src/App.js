@@ -1,17 +1,23 @@
-import React, { useState } from 'react';
-import { BrowserRouter as Router, Route, Routes, useLocation } from 'react-router-dom';
-import { Box, CssBaseline, Toolbar } from '@mui/material';
-import Appbar from './components/AppBar';
-import Sidebar from './components/SideBar';
-import LoginPage from './pages/LoginPage';
-import RegisterPage from './pages/RegisterPage';
-import HomePage from './pages/HomePage';
-import FraccPage from './pages/FraccPage';
-import MapComponent from './components/MapComponent';
-import ProtectedRoute from './components/ProtectedRoute';
-import FlexboxDemo from './components/FlexboxDemo';
-import GridComponent from './components/GridComponent';
-import Dashboard from './components/Dashboard';
+import React, { useState } from "react";
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  useLocation,
+} from "react-router-dom";
+import { Box, CssBaseline, Toolbar } from "@mui/material";
+import Appbar from "./components/AppBar";
+import Sidebar from "./components/SideBar";
+import LoginPage from "./pages/LoginPage";
+import RegisterPage from "./pages/RegisterPage";
+import HomePage from "./pages/HomePage";
+import FraccPage from "./pages/FraccPage";
+import MapComponent from "./components/MapComponent";
+import ProtectedRoute from "./components/ProtectedRoute";
+import FlexboxDemo from "./components/FlexboxDemo";
+import GridComponent from "./components/GridComponent";
+import Dashboard from "./components/Dashboard";
+import ServiciosPage from "./pages/ServiciosPage";
 
 const drawerWidth = 240;
 
@@ -23,15 +29,19 @@ const Layout = ({ children }) => {
     setMobileOpen(!mobileOpen);
   };
 
-  const isAuthPage = location.pathname === '/login' || location.pathname === '/register';
+  const isAuthPage =
+    location.pathname === "/login" || location.pathname === "/register";
 
   return (
-    <Box sx={{ display: 'flex' }}>
+    <Box sx={{ display: "flex" }}>
       <CssBaseline />
       {!isAuthPage && (
         <>
           <Appbar handleDrawerToggle={handleDrawerToggle} />
-          <Sidebar mobileOpen={mobileOpen} handleDrawerToggle={handleDrawerToggle} />
+          <Sidebar
+            mobileOpen={mobileOpen}
+            handleDrawerToggle={handleDrawerToggle}
+          />
         </>
       )}
       <Box
@@ -39,7 +49,7 @@ const Layout = ({ children }) => {
         sx={{
           flexGrow: 1,
           p: 3,
-          width: { sm: isAuthPage ? '100%' : `calc(100% - ${drawerWidth}px)` },
+          width: { sm: isAuthPage ? "100%" : `calc(100% - ${drawerWidth}px)` },
           mt: !isAuthPage ? 8 : 0,
         }}
       >
@@ -58,7 +68,7 @@ const App = () => {
           path="/"
           element={
             <Layout>
-              <LoginPage />
+              <HomePage />
             </Layout>
           }
         />
@@ -123,6 +133,14 @@ const App = () => {
           element={
             <Layout>
               <FlexboxDemo />
+            </Layout>
+          }
+        />
+        <Route
+          path="/Servicios"
+          element={
+            <Layout>
+              <ServiciosPage />
             </Layout>
           }
         />
