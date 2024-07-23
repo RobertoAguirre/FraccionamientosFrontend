@@ -33,7 +33,7 @@ const Layout = ({ children }) => {
     location.pathname === "/login" || location.pathname === "/register";
 
   return (
-    <Box sx={{ display: "flex" }}>
+    <Box sx={{}}>
       <CssBaseline />
       {!isAuthPage && (
         <>
@@ -46,12 +46,14 @@ const Layout = ({ children }) => {
       )}
       <Box
         component="main"
-        sx={{
-          flexGrow: 1,
-          p: 3,
-          width: { sm: isAuthPage ? "100%" : `calc(100% - ${drawerWidth}px)` },
-          mt: !isAuthPage ? 8 : 0,
-        }}
+        sx={
+          {
+            // flexGrow: 1,
+            // p: 3,
+            // width: { sm: isAuthPage ? "100%" : `calc(100% - ${drawerWidth}px)` },
+            // mt: !isAuthPage ? 8 : 0,
+          }
+        }
       >
         {!isAuthPage && <Toolbar />}
         {children}
