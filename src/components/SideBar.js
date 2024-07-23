@@ -33,6 +33,9 @@ const Sidebar = ({ mobileOpen, handleDrawerToggle }) => {
         <ListItem button component={Link} to="/map">
           <ListItemText primary="Ver mapa" />
         </ListItem>
+        <ListItem button component={Link} to="/servicios">
+          <ListItemText primary="Servicios" />
+        </ListItem>
       </List>
     </div>
   );
