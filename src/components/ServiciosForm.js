@@ -4,6 +4,7 @@ import axios from "axios";
 import { TextField, Button, Box, Typography, Tabs, Tab } from "@mui/material";
 import { TabContext, TabList, TabPanel } from "@mui/lab";
 
+
 import { useNavigate } from "react-router-dom";
 
 const ServiciosForm = () => {
@@ -24,7 +25,7 @@ const ServiciosForm = () => {
 
       setResponse(response.data.servicios);
 
-      alert("Lista de usuarios encontrada con éxito" + response.data);
+      alert("Lista de Servicios encontrada con éxito" + response.data);
       //   navigate("/login");
     } catch (err) {
       console.log(err);
@@ -46,13 +47,12 @@ const ServiciosForm = () => {
           </TabList>
         </Box>
         <TabPanel value="1">
+          
           <ul>
             {response.map((servicio) => (
               <li>{servicio.nombreServicio}</li>
             ))}
-            ;<li>Servicio 1 </li>
-            <li>Servicio 2</li>
-            <li>Servicio 3</li>
+            
           </ul>
         </TabPanel>
         <TabPanel value="2">Item Two</TabPanel>
