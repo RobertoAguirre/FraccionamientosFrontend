@@ -27,9 +27,6 @@ const Sidebar = ({ mobileOpen, handleDrawerToggle }) => {
         <ListItem button component={Link} to="/fraccRegister">
           <ListItemText primary="Registrar Fraccionamiento" />
         </ListItem>
-        <ListItem button component={Link} to="/servicios">
-          <ListItemText primary="Ver Servicios" />
-        </ListItem>
         <ListItem button component={Link} to="/map">
           <ListItemText primary="Ver mapa" />
         </ListItem>
