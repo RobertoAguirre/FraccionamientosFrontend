@@ -8,7 +8,7 @@ const FlexboxDemo = ()=>{
             justifyContent:'center',
             alignItems:'center',
             height:'100vh'
-          }}>
+            }}>
 
                 <Box sx={{width:100, height:100, bgcolor:'primary.main'}} >Caja 1</Box>
                 <Box sx={{width:100, height:100, bgcolor:'secondary.main', mx:2}} >Caja 2</Box>

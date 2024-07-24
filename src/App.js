@@ -30,8 +30,8 @@ const Layout = ({ children }) => {
       <CssBaseline />
       {!isAuthPage && (
         <>
-          <Appbar handleDrawerToggle={handleDrawerToggle} />
-          <Sidebar mobileOpen={mobileOpen} handleDrawerToggle={handleDrawerToggle} />
+          {/* <Appbar handleDrawerToggle={handleDrawerToggle} /> */}
+          {/* <Sidebar mobileOpen={mobileOpen} handleDrawerToggle={handleDrawerToggle} /> */}
         </>
       )}
       <Box
