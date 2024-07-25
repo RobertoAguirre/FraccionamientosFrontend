@@ -34,44 +34,49 @@ import FolderIcon from "@mui/icons-material/Folder";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import RegisterFormServicios from "./RegisterFormServicios";
+// import DialogModal from "./DialogModal";
+import DialogModalTemplate from "./componentTemplates/DialogModalTemplate";
 
 import { useNavigate } from "react-router-dom";
 
-function generate(element) {
-  return [0, 1, 2].map((value) =>
-    React.cloneElement(element, {
-      key: value,
-    })
-  );
-}
+const emails = ["username@gmail.com", "user02@gmail.com"]; // Lista de correos electronicos Temporal
 
 const ServiciosForm = () => {
-  const [tabValue, setTabValue] = useState("1");
-  const [response, setResponse] = useState([]); // Hook para manejar la lista de servicios
-  const [SelectionListValue, setSelectionListValue] = useState("");
+  //
+  // Constantes de estado de React, tambien conocidos como Hooks
+  const [tabValue, setTabValue] = useState("1"); // Hook para manejar las Tabs seleccionadas
+  const [servicios, setServicios] = useState([]); // Hook para manejar la lista de servicios
+  // const [SelectionListValue, setSelectionListValue] = useState(""); // Hook para manejar la lista de servicios
+  const [fraccIDList, setFraccIDList] = React.useState([]); // Hook para manejar la lista de fraccionamientos
+  const [selectedFraccID, setSelectedFraccID] = React.useState(); // Hook para manejar la seleccion de fraccionamientos
+  const [serviciosDetalle, setServiciosDetalle] = React.useState([]); // Hook para manejar la lista de servicios detalle
 
-  const [fraccIDList, setFraccIDList] = React.useState([]);
-  const [selectedFraccID, setSelectedFraccID] = React.useState();
+  // controles de DialogModal
+  const [open, setOpen] = useState(false);
+  const [selectedValue, setSelectedValue] = useState(emails[1]);
 
-  // Hooks para manejar
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+  const handleClose = (value) => {
+    setOpen(false);
+    setSelectedValue(value);
+  };
+
+  // Hooks para manejar la lista de seleccion de fraccionamientos y los tabs
   const handleSelectionChange = (event) => {
-    // Handle selection list change
-    // setSelectionListValue(event.target.value);
     setSelectedFraccID(fraccIDList[event.target.value]);
   };
-
   const handleTabChange = (event, newValue) => {
-    // Handle tab change
     setTabValue(newValue);
   };
-  // Hooks para navegar entre rutas en el backend
 
-  //
+  // Comienzan los hooks para navegar entre rutas en el backend
   const handleServicios = async () => {
     try {
       // usar get con axios para obtener la lista de servicios
       const response = await axios.get("http://localhost:3001/api/servicios");
-      setResponse(response.data.servicios);
+      setServicios(response.data.servicios);
     } catch (err) {
       console.log(err);
       alert(`Error al visualizar lista de servicios`);
@@ -89,8 +94,20 @@ const ServiciosForm = () => {
       alert(`Error al visualizar lista de servicios`);
     }
   };
+  // const handleServiciosDetalle = async () => {
+  //   try {
+  //     // usar get con axios para obtener la lista de servicios
+  //     const response = await axios.get("http://localhost:3001/api/servicios/" + );
+  //     setServiciosDetalle(response.data.servicios.);
+  //   } catch (err) {
+  //     console.log(err);
+  //     alert(`Error al visualizar lista de servicios`);
+  //   }
+  // };
 
-  // UseEffect para cargar la lista de servicios al cargar la página
+  // Terminan los hooks para navegar entre rutas en el backend
+
+  // UseEffect se utiliza para cargar las listas de servicios y fraccionamientos al cargar la pagina
   useEffect(() => {
     handleServicios();
     handleFraccIDList();
@@ -98,6 +115,12 @@ const ServiciosForm = () => {
 
   return (
     <Box component="form" sx={{ mt: 0 }}>
+      {/* <DialogModal /> */}
+      <DialogModalTemplate
+        selectedValue={selectedValue}
+        open={open}
+        onClose={handleClose}
+      />
       {/* Inicia Formulario para seleccion de servicios */}
       <TabContext value={tabValue}>
         <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
@@ -115,7 +138,7 @@ const ServiciosForm = () => {
           <Paper sx={{ p: 2 }}>
             <Grid container spacing={2}>
               <Grid item xs={12} md={6}>
-                <Typography sx={{}} variant="h3" component="div">
+                <Typography sx={{}} variant="h6" component="div">
                   {/* [Nombre del Fraccionamiento] */}
                   {/* {fraccIDList[0].nombreFracc} */}
                   {selectedFraccID
@@ -163,9 +186,12 @@ const ServiciosForm = () => {
             <List>
               <Grid container spacing={2}>
                 {/* // array de servicios */}
-                {response.map((servicio) => (
+                {servicios.map((servicio) => (
                   <Grid item xs={12} md={6}>
-                    <ListItemButton key={servicio.idServicio}>
+                    <ListItemButton
+                      key={servicio.idServicio}
+                      onClick={handleClickOpen}
+                    >
                       <ListItemAvatar>
                         <Avatar>
                           <FolderIcon />
