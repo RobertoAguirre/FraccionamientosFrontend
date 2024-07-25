@@ -6,7 +6,7 @@ import { TabPanel as BaseTabPanel } from '@mui/base/TabPanel';
 import { buttonClasses } from '@mui/base/Button';
 import { Tab as BaseTab, tabClasses } from '@mui/base/Tab';
 import {Box, Container, Typography, Button, IconButton } from '@mui/material';
-
+import SplitButton from './SplitButton';
 
 export default function UnstyledTabsIntroduction() {
   return (
@@ -16,9 +16,9 @@ export default function UnstyledTabsIntroduction() {
         <Tab value={1}>FRACCIONAMIENTOS</Tab>
         <Tab value={2}>SERVICIOS</Tab>
       </TabsList>
-      <TabPanel value={0}> fraccionamientos
+      <TabPanel value={0}>
 
-        <Button>Boton</Button>
+        <SplitButton>Seleccionar fraccionamiento</SplitButton>
 
       </TabPanel>
       <TabPanel value={1}>Profile page</TabPanel>
