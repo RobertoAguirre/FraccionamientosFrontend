@@ -15,6 +15,7 @@ import PersonIcon from "@mui/icons-material/Person";
 import AddIcon from "@mui/icons-material/Add";
 import Typography from "@mui/material/Typography";
 import { blue } from "@mui/material/colors";
+import { Grid } from "@mui/material";
 
 const emails = ["username@gmail.com", "user02@gmail.com"];
 
@@ -30,11 +31,13 @@ const DialogModalTemplate = (props) => {
   };
 
   return (
-    <div>
-      <Dialog onClose={handleClose} open={open}>
-        {content}
-      </Dialog>
-    </div>
+    <Grid container>
+      <Grid item xs={12} md={6}>
+        <Dialog onClose={handleClose} open={open}>
+          {content}
+        </Dialog>
+      </Grid>
+    </Grid>
   );
 };
 DialogModalTemplate.propTypes = {

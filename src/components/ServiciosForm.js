@@ -22,6 +22,7 @@ import {
   styled,
   ListItemButton,
   Paper,
+  Divider,
 } from "@mui/material";
 
 import InputLabel from "@mui/material/InputLabel";
@@ -35,6 +36,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import RegisterFormServicios from "./RegisterFormServicios";
 import DialogModalTemplate from "./componentTemplates/DialogModalTemplate";
+import EditFormServicios from "./EditFormServicios";
 
 import { useNavigate } from "react-router-dom";
 
@@ -149,6 +151,13 @@ const ServiciosForm = () => {
 
   // Contenido del Modal
   let modalContent;
+
+  // Contenido del Modal:
+  // Opciones de vizualizacion
+  // -- 1. Vizualizar la lista de servicios. Lista
+  // -- 2. Editar la lista de servicios. Formulario
+
+  // 1. Vizualizar. Para vizualizar el contenido del modal
   if (!serviciosSingle || serviciosSingle.length === 0) {
     modalContent = (
       <Box>
@@ -164,102 +173,118 @@ const ServiciosForm = () => {
     );
   } else {
     modalContent = (
-      <Box sx={{ maxWidth: "800px" }}>
-        <List dense={true} sx={{ width: "500px" }}>
+      <Grid item>
+        <List dense={true} sx={{}}>
           <ListItemButton>
             <ListItemText
               primary={"Nombre Servicio"}
-              secondary={serviciosSingle[0].nombreServicio}
+              secondary={
+                <Typography
+                  variant="h6"
+                  component="div"
+                  sx={{ fontWeight: "bold" }}
+                >
+                  {serviciosSingle[0].nombreServicio}
+                </Typography>
+              }
             />
-            <IconButton edge="end" aria-label="editServiceField">
-              <EditIcon />
-            </IconButton>
           </ListItemButton>
+          <Divider />
           <ListItemButton>
             <ListItemText
               primary={"Costo Por Pago"}
               secondary={serviciosSingle[0].costoPorPago}
             />
-            <IconButton edge="end" aria-label="editServiceField">
-              <EditIcon />
-            </IconButton>
           </ListItemButton>
           <ListItemButton>
             <ListItemText
               primary={"Frecuencia Pago"}
               secondary={serviciosSingle[0].frecuenciaPago}
             />
-            <IconButton edge="end" aria-label="editServiceField">
-              <EditIcon />
-            </IconButton>
           </ListItemButton>
           <ListItemButton>
             <ListItemText
               primary={"ID Fraccionamiento"}
               secondary={serviciosSingle[0].idFraccionamiento}
             />
-            <IconButton edge="end" aria-label="editServiceField">
-              <EditIcon />
-            </IconButton>
           </ListItemButton>
           <ListItemButton>
             <ListItemText
               primary={"Nombre Compañia"}
               secondary={serviciosSingle[0].nombreCompania}
             />
-            <IconButton edge="end" aria-label="editServiceField">
-              <EditIcon />
-            </IconButton>
           </ListItemButton>
           <ListItemButton>
             <ListItemText
               primary={"Nombre Fraccionamiento"}
               secondary={serviciosSingle[0].nombreFraccionamiento}
             />
-            <IconButton edge="end" aria-label="editServiceField">
-              <EditIcon />
-            </IconButton>
           </ListItemButton>
           <ListItemButton>
             <ListItemText
               primary={"Número Contrato"}
               secondary={serviciosSingle[0].numeroContrato}
             />
-            <IconButton edge="end" aria-label="editServiceField">
-              <EditIcon />
-            </IconButton>
           </ListItemButton>
           <ListItemButton>
             <ListItemText primary={"ID"} secondary={serviciosSingle[0]._id} />
-            <IconButton edge="end" aria-label="editServiceField">
-              <EditIcon />
-            </IconButton>
           </ListItemButton>
         </List>
         {/* // Botones para editar, borrar o cancelar */}
-        <Box
+        <Grid
+          container
+          spacing={2}
           sx={{
             display: "flex",
             justifyContent: "center",
             mt: 2,
             mb: 2,
+            p: 2,
           }}
         >
-          <Button variant="contained" color="primary" sx={{ mr: 2 }}>
-            Editar
-          </Button>
-          <Button variant="contained" color="error" sx={{ mr: 2 }}>
-            Borrar servicio
-          </Button>
-          <br />
-          <Button variant="contained" color="primary" onClick={handleClose}>
-            Cancelar
-          </Button>
-        </Box>
-      </Box>
+          <Grid item xs={12} md={8}>
+            <Button variant="contained" color="error" sx={{ width: "100%" }}>
+              Borrar servicio
+            </Button>
+          </Grid>
+          <Grid item xs={12} md={4} sx={{}}>
+            <Button variant="contained" color="primary" sx={{ width: "100%" }}>
+              Editar
+            </Button>
+          </Grid>
+
+          <Grid item xs={12} md={12}>
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={handleClose}
+              sx={{ width: "100%" }}
+            >
+              Cancelar
+            </Button>
+          </Grid>
+        </Grid>
+      </Grid>
     );
   }
-
+  // 2. Editar. Fromulari opara editar contenido del modal
+  let modalContentEdit;
+  if (!serviciosSingle || serviciosSingle.length === 0) {
+    modalContentEdit = (
+      <Box>
+        <List dense={true}>
+          <ListItemButton>
+            <ListItemText
+              primary={"Servicio Null"}
+              secondary={"No hay servicio seleccionado"}
+            />
+          </ListItemButton>
+        </List>
+      </Box>
+    );
+  } else {
+    modalContentEdit = <Grid item>{/* <EditFormServicios /> */}</Grid>;
+  }
   useEffect(() => {
     handleServicios();
     handleFraccIDList();
@@ -268,6 +293,7 @@ const ServiciosForm = () => {
   return (
     <Box component="form" sx={{ mt: 0 }}>
       {/* <DialogModal /> */}
+      {/* <EditFormServicios idFracc={serviciosSingle[0].idFraccionamiento} /> */}
       <DialogModalTemplate
         selectedValue={selectedValue}
         open={open}

@@ -14,7 +14,7 @@ import {
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
-const RegisterFormServicios = () => {
+const EditFormServicios = (idFracc) => {
   const [nombreServicio, setNombreServicio] = useState("");
   const [nombreCompania, setNombreCompania] = useState("");
   const [numeroContrato, setNumeroContrato] = useState("");
@@ -26,63 +26,65 @@ const RegisterFormServicios = () => {
 
   // Hook para manejar Dropdown List de FraccID
   const [selectedFraccID, setSelectedFraccID] = React.useState(); // Hook para manejar la seleccion de fraccionamientos
+
   const [fraccIDList, setFraccIDList] = React.useState([]); // Hook para manejar la lista de fraccionamientos
   const [fraccIDAutoFill, setFraccIDAutoFill] = React.useState(""); // Hook para manejar la lista de fraccionamientos
 
-  // Hooks para manejar DROPDOWN List. la lista de seleccion de fraccionamientos y los tabs
-  const handleSelectionChange = (event) => {
-    setSelectedFraccID(fraccIDList[event.target.value]);
-    setIdFraccionamiento(fraccIDList[event.target.value]._id);
-    // setFraccIDAutoFill()
-  };
+  // // Hooks para manejar DROPDOWN List. la lista de seleccion de fraccionamientos y los tabs
+  // const handleSelectionChange = (event) => {
+  //   setSelectedFraccID(fraccIDList[event.target.value]);
+  //   setIdFraccionamiento(fraccIDList[event.target.value]._id);
+  // };
 
-  // Hook para manejar Rutas del Backend
-  const handleFraccIDList = async () => {
-    try {
-      // alert("Intentando conexion");
-      // usar get con axios para obtener la lista de servicios
-      const response = await axios.get("http://localhost:3001/api/fracc");
-      setFraccIDList(response.data.fraccionamientos);
-      // alert("Conexion exitosa");
-    } catch (err) {
-      console.log(err);
-      alert(`Error al visualizar lista de servicios`);
-    }
-  };
+  // // Hook para manejar Rutas del Backend
+  // const handleFraccIDList = async () => {
+  //   try {
+  //     // alert("Intentando conexion");
+  //     // usar get con axios para obtener la lista de servicios
+  //     const response = await axios.get("http://localhost:3001/api/fracc");
+  //     setFraccIDList(response.data.fraccionamientos);
+  //     // alert("Conexion exitosa");
+  //   } catch (err) {
+  //     console.log(err);
+  //     alert(`Error al visualizar lista de servicios`);
+  //   }
+  // };
 
   const navigate = useNavigate();
 
-  const handleRegister = async () => {
+  setIdFraccionamiento(idFracc);
+
+  const handleEdit = async () => {
     try {
-      const response = await axios.post("http://localhost:3001/api/servicios", {
-        nombreServicio,
-        nombreCompania,
-        numeroContrato,
-        frecuenciaPago,
-        costoPorPago,
-        idFraccionamiento,
-        // nombreFraccionamiento,
-        logo,
-      });
-      alert("Servicio registrado con éxito");
-      navigate("/servicios");
+      const response = await axios.put(
+        "http://localhost:3001/api/servicios" + idFraccionamiento,
+        {
+          nombreServicio,
+          nombreCompania,
+          numeroContrato,
+          frecuenciaPago,
+          costoPorPago,
+          idFraccionamiento,
+          logo,
+        }
+      );
+      alert("Servicio editado con éxito");
+      // navigate("/servicios");
     } catch (err) {
       console.log(err);
-      alert(`Error al registrar el servicio ${nombreServicio}`);
+      alert(`Error al editar el servicio ${nombreServicio}`);
     }
   };
   // UseEffect se utiliza para cargar las listas de servicios y fraccionamientos al cargar la pagina
   useEffect(() => {
-    handleFraccIDList();
+    // handleFraccIDList();
   }, []);
   return (
     <Box component="form" sx={{ mt: 1 }}>
-      <Paper sx={{ p: 2 }}>
+      {/* <Paper sx={{ p: 2 }}>
         <Grid container spacing={2}>
           <Grid item xs={12} md={6}>
             <Typography sx={{}} variant="h6" component="div">
-              {/* [Nombre del Fraccionamiento] */}
-              {/* {fraccIDList[0].nombreFracc} */}
               {selectedFraccID
                 ? selectedFraccID.nombreFracc
                 : "[Nombre del Fraccionamiento]"}
@@ -119,7 +121,7 @@ const RegisterFormServicios = () => {
             </FormControl>
           </Grid>
         </Grid>
-      </Paper>
+      </Paper> */}
       <TextField
         margin="normal"
         required
@@ -177,32 +179,7 @@ const RegisterFormServicios = () => {
         value={costoPorPago}
         onChange={(e) => setCostoPorPago(e.target.value)}
       />
-      {/* <TextField
-        margin="normal"
-        required
-        fullWidth
-        id="idFraccionamiento"
-        label={selectedFraccID
-          ? selectedFraccID._id
-          : "[ID del Fraccionamiento]"}
-        name="idFraccionamiento"
-        autoComplete={
-          selectedFraccID ? selectedFraccID._id : "[ID del Fraccionamiento]"
-        }
-        value={idFraccionamiento}
-        onChange={(e) => setIdFraccionamiento(e.target.value)}
-      /> */}
-      {/* <TextField
-        margin="normal"
-        required
-        fullWidth
-        id="nombreFraccionamiento"
-        label="Nombre del Fraccionamiento"
-        name="nombreFraccionamiento"
-        autoComplete="nombreFraccionamiento"
-        value={nombreFraccionamiento}
-        onChange={(e) => setNombreFraccionamiento(e.target.value)}
-      /> */}
+
       <TextField
         margin="normal"
         fullWidth
@@ -217,12 +194,12 @@ const RegisterFormServicios = () => {
         fullWidth
         variant="contained"
         sx={{ mt: 3, mb: 2 }}
-        onClick={handleRegister}
+        onClick={handleEdit}
       >
-        Registrar Servicio
+        Guardar Cambios
       </Button>
     </Box>
   );
 };
 
-export default RegisterFormServicios;
+export default EditFormServicios;
