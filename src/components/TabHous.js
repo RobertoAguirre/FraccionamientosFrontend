@@ -5,8 +5,11 @@ import { TabsList as BaseTabsList } from '@mui/base/TabsList';
 import { TabPanel as BaseTabPanel } from '@mui/base/TabPanel';
 import { buttonClasses } from '@mui/base/Button';
 import { Tab as BaseTab, tabClasses } from '@mui/base/Tab';
-import {Box, Container, Typography, Button, IconButton } from '@mui/material';
+import {Box, Container, Typography, Button, IconButton, Drawer } from '@mui/material';
 import SplitButton from './SplitButton';
+import HouseList from './casasList';
+import { House } from '@mui/icons-material';
+
 
 export default function UnstyledTabsIntroduction() {
   return (
@@ -17,13 +20,23 @@ export default function UnstyledTabsIntroduction() {
         <Tab value={2}>SERVICIOS</Tab>
       </TabsList>
       <TabPanel value={0}>
-
-        <SplitButton>Seleccionar fraccionamiento</SplitButton>
-
+        
+      
       </TabPanel>
+
+      <TabPanel value={0}>
+
+        
+        <SplitButton></SplitButton>
+
+        
+        
+        </TabPanel>
       <TabPanel value={1}>Profile page</TabPanel>
       <TabPanel value={2}>Language page</TabPanel>
+      
     </Tabs>
+    
   );
 }
 
@@ -97,7 +110,7 @@ const TabPanel = styled(BaseTabPanel)(
   background: ${theme.palette.mode === 'dark' ? grey[900] : '#fff'};
   border: 1px solid ${theme.palette.mode === 'dark' ? grey[700] : grey[200]};
   border-radius: 12px;
-  opacity: 0.6;
+  //opacity: 0.6;
   `,
 );
 

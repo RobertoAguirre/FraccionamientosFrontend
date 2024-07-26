@@ -18,6 +18,9 @@ import FlexboxDemo from "./components/FlexboxDemo";
 import GridComponent from "./components/GridComponent";
 import Dashboard from "./components/Dashboard";
 import ServiciosPage from "./pages/ServiciosPage";
+import ItemList from './components/Tabs';
+import { Container, Typography } from '@mui/material';
+import TabHous from './components/TabHous';
 
 const drawerWidth = 240;
 
@@ -119,6 +122,21 @@ const App = () => {
           element={
             <Layout>
               <Dashboard />
+              <Container>
+                <Layout>TabHous</Layout>
+      <Typography variant="h4" gutterBottom>
+        Lista de casas
+      </Typography>
+      <ItemList />
+    </Container>
+            </Layout>
+          }
+        />
+         <Route
+          path="/taps"
+          element={
+            <Layout>
+              <TabHous />
             </Layout>
           }
         />
